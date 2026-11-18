@@ -1,17 +1,19 @@
 Package: mypackage
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Simulate the linear regression lm function in R
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Samantha", "Figueredo Botello",
+      email = "sfiguere@umich.edu",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Fits linear regression models by solving the normal
+    equations directly. Method uses ordinary least squares implementation.
+    Returns and reports results in the same style as 'lm' and 'summary.lm' 
+    in base R linear regression function. 
+License: Not applicable 
 Encoding: UTF-8
 LazyData: true
 Config/roxygen2/version: 8.1.1
