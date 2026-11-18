@@ -11,6 +11,8 @@
 #' @export
 lm_function = function(call_formula, data) {
 
+  call = match.call()
+
   mf = stats::model.frame(
     formula = call_formula,
     data = data
@@ -29,8 +31,13 @@ lm_function = function(call_formula, data) {
 
   coefs = solve(predictor_mat, outcome_mat)
 
-  return(coefs)
+  obj = list(
+    call = call,
+    coefficients = coefs
+    )
+  class(obj) = "lm_sfiguere"
 
+  return(obj)
 }
 
 
