@@ -9,7 +9,8 @@
 #' lm_function(mpg ~ wt, mtcars)
 #'
 #' @export
-lm_function = function(call_formula, data) {
+lm_function = function(call_formula, data)
+{
   call = match.call()
 
   mf = stats::model.frame(formula = call_formula, data = data)
@@ -57,3 +58,7 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 
   invisible(x)
 }
+
+
+
+
