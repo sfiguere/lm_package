@@ -10,13 +10,9 @@
 #'
 #' @export
 lm_function = function(call_formula, data) {
-
   call = match.call()
 
-  mf = stats::model.frame(
-    formula = call_formula,
-    data = data
-  )
+  mf = stats::model.frame(formula = call_formula, data = data)
   # allow model.frame to update it
   mt = attr(mf, "terms")
 
@@ -29,16 +25,24 @@ lm_function = function(call_formula, data) {
   # calculate how predictors move with outcome
   outcome_mat = x_data_transpose %*% y_data
 
-  coefs = solve(predictor_mat, outcome_mat)
+  coefs = drop(solve(predictor_mat, outcome_mat))
 
-  obj = list(
-    call = call,
-    coefficients = coefs
-    )
+  obj = list(call = call, coefficients = coefs)
   class(obj) = "lm_sfiguere"
 
   return(obj)
 }
 
+print.lm_sfiguere <- function(x, digits = max(3L, getOption("digits") - 3L), ...)
+{
+  cat("\nCall:\n",
+      paste(deparse(x$call), sep = "\n", collapse = "\n"),
+      "\n\n",
+      sep = "")
 
+  cat("Coefficients:\n")
+  print.default(format(x$coefficients, digits = 3, quote = FALSE))
+  cat("\n")
 
+  invisible(x)
+}
