@@ -33,7 +33,7 @@ lm_function = function(call_formula, data) {
   return(obj)
 }
 
-print.lm_sfiguere <- function(x, digits = max(3L, getOption("digits") - 3L), ...)
+print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
   cat("\nCall:\n",
       paste(deparse(x$call), sep = "\n", collapse = "\n"),
