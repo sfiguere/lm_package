@@ -33,6 +33,17 @@ lm_function = function(call_formula, data) {
   return(obj)
 }
 
+#' Print an lm_sfiguere object
+#'
+#' @param x An object of class "lm_sfiguere"
+#' @param digits Number of significant digits to show
+#' @param ... Unused, for further arguments passed or from other methods
+#' @return Invisibly returns the input object \code{x}.
+#'
+#' @examples
+#' print(lm_function(mpg ~ wt, mtcars))
+#'
+#' @export
 print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
   cat("\nCall:\n",
