@@ -72,6 +72,12 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 #' @param object An object of class "lm_sfiguere"
 #' @param ... Unused, for further arguments passed or from other methods
 #' @return An object of class "summary.lm_sfiguere"
+#'
+#' @examples
+#' model = lm_function(mpg ~ wt, data = mtcars)
+#' summary(model)
+#'
+#'
 #' @export
 summary.lm_sfiguere = function(object, ...) {
   est = object$coefficients
