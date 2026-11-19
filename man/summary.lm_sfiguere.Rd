@@ -7,13 +7,19 @@
 \method{summary}{lm_sfiguere}(object, ...)
 }
 \arguments{
-\item{object}{an object of class "lm_sfiguere"}
+\item{object}{An object of class "lm_sfiguere"}
 
-\item{...}{unused}
+\item{...}{Unused, for further arguments passed or from other methods}
 }
 \value{
-an object of class "summary.lm_sfiguere"
+An object of class "summary.lm_sfiguere"
 }
 \description{
 Summarize an lm_sfiguere object
+}
+\examples{
+model = lm_function(mpg ~ wt, data = mtcars)
+summary(model)
+
+
 }
