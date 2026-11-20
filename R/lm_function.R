@@ -11,7 +11,6 @@
 #' @export
 lm_function = function(call_formula, data)
 {
-  call = match.call()
 
   mf = stats::model.frame(formula = call_formula, data = data)
   # allow model.frame to update
@@ -33,6 +32,10 @@ lm_function = function(call_formula, data)
   resids = y_data - fitted
 
   rank = qr(x_data)$rank
+  data_name = deparse(substitute(data))
+  call = paste0("lm_funcation(formula = ",
+                deparse(formula), ", data = ", data_name, ")")
+
 
   obj = list(
     call = call,
@@ -61,11 +64,10 @@ lm_function = function(call_formula, data)
 #' @export
 print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
-  cat("\nCall:\n",
-      paste(deparse(x$call), sep = "\n", collapse = "\n"),
-      "\n\n",
-      sep = "")
-
+  cat("\nCall:\n")
+  cat(x$call)
+  cat("\n")
+  cat("\n")
   cat("Coefficients:\n")
   print.default(format(x$coefficients, digits = 3, quote = FALSE))
   cat("\n")
@@ -139,10 +141,11 @@ summary.lm_sfiguere = function(object, ...) {
 #' @export
 print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
-  cat("\nCall:\n",
-      paste(deparse(x$call), sep = "\n", collapse = "\n"),
-      "\n\n",
-      sep = "")
+  cat("\nCall:\n")
+  cat(x$call)
+  cat("\n")
+  cat("\n")
+
 
   cat("Residuals:\n")
   five_summary = c("Min", "1Q", "Median", "3Q", "Max")
