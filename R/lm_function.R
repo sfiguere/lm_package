@@ -32,12 +32,16 @@ lm_function = function(call_formula, data)
   fitted = drop(x_data %*% coefs)
   resids = y_data - fitted
 
+  rank = qr(x_data)$rank
+
   obj = list(
     call = call,
     coefficients = coefs,
     residuals = resids,
+    fitted.values = fitted,
+    rank = rank,
     x_obj = x_data,
-    df.residual = nrow(x_data) - qr(x_data)$rank
+    df.residual = nrow(x_data) - rank
     )
   class(obj) = "lm_sfiguere"
 
@@ -81,12 +85,12 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 #'
 #' @export
 summary.lm_sfiguere = function(object, ...) {
+
   call = object$call
   est = object$coefficients
   res = object$residuals
   x_data = object$x_obj
   df = object$df.residual
-
 
   # build table of coefficients
   rss = sum(res^2)
@@ -102,11 +106,26 @@ summary.lm_sfiguere = function(object, ...) {
     `Pr(>|t|)` = pval
     )
 
+  # Format residual standard error, Multiple R-squared, and F-statistic section
+  sigma = sqrt(resvar)
+  mss = sum((object$fitted.values - mean(object$fitted.values))^2)
+  r_squared = mss / (mss + rss)
+  rank = qr(x_data)$rank
+  p = object$rank
+  f_statistic = (mss / (p - 1)) / resvar
+  n = length(res)
+
   structure(
-    list(call = call,
-         residuals = res,
-         coefficients = coef_table
-         ),
+    list(
+      call = object$call,
+      residuals = res,
+      coefficients  = coef_table,
+      sigma = sqrt(resvar),
+      df = df,
+      r.squared = r_squared,
+      adj.r.squared = 1 - (1 - r_squared) * (n - 1) / df,
+      fstatistic = c(value = f_statistic, numdf = p - 1, dendf = df)
+    ),
     class = "summary.lm_sfiguere"
   )
 }
@@ -135,6 +154,21 @@ print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3
   cat("\nCoefficients:\n")
   stats::printCoefmat(x$coefficients, digits = digits)
 
+  cat("\nResidual standard error:",
+      format(signif(x$sigma, digits)), "on", x$df, "degrees of freedom")
+  cat("\n")
+  cat("Multiple R-squared: ", formatC(x$r.squared, digits = digits))
+  cat(",\tAdjusted R-squared: ", formatC(x$adj.r.squared, digits = digits),
+        "\nF-statistic:", formatC(x$fstatistic[1L], digits = digits),
+        "on", x$fstatistic[2L], "and",
+        x$fstatistic[3L], "DF,  p-value:",
+        format.pval(pf(x$fstatistic[1L],
+                       x$fstatistic[2L],
+                       x$fstatistic[3L],
+                       lower.tail = FALSE),
+                    digits = digits))
+  cat("\n")
+  cat("\n")
 }
 
 
