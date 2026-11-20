@@ -157,9 +157,9 @@ print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3
   cat("\nResidual standard error:",
       format(signif(x$sigma, digits)), "on", x$df, "degrees of freedom")
   cat("\n")
-  cat("Multiple R-squared: ", formatC(x$r.squared, digits = digits))
-  cat(",\tAdjusted R-squared: ", formatC(x$adj.r.squared, digits = digits),
-        "\nF-statistic:", formatC(x$fstatistic[1L], digits = digits),
+  cat(paste0("Multiple R-squared: ", round(x$r.squared, digits)))
+  cat(",\tAdjusted R-squared: ", round(x$r.squared, digits), "\n")
+  cat("F-statistic:", formatC(x$fstatistic[1L], digits = digits),
         "on", x$fstatistic[2L], "and",
         x$fstatistic[3L], "DF,  p-value:",
         format.pval(pf(x$fstatistic[1L],
