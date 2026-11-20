@@ -107,7 +107,6 @@ all.equal(summary(model)$coefficients, coef(summary(base_model)),
 set.seed(50)
 # observations
 n = 50000  
-
 # three predictors of random numbers
 sim_data = data.frame(
   x1 = rnorm(n),
@@ -115,17 +114,18 @@ sim_data = data.frame(
   x3 = rnorm(n)
 )
 
+x = sim_data$x1 + sim_data$x2 + sim_data$x3
 signal = 1 + 2 * sim_data$x1 - 3 * sim_data$x2 + 0.5 * sim_data$x3
 noise = rnorm(n)
 sim_data$y = signal + noise
 
 efficiency_comparison = bench::mark(
-  lm = coef(lm(y ~ x1 + x2 + x3, data = sim_data)),
-  lm_function = lm_function(y ~ x1 + x2 + x3, data = sim_data)$coefficients,
+  lm = coef(lm(y ~ x, data = sim_data)),
+  lm_function = lm_function(y ~ x, data = sim_data)$coefficients,
   iterations = 20
 )
 
-efficiency_comparison[, c("expression", "min", "median", "itr/sec", "mem_alloc")]
+print(efficiency_comparison)
 ```
 
 ## Visualization of model fit
