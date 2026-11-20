@@ -12,12 +12,10 @@
 lm_function = function(call_formula, data)
 {
 
-  mf = stats::model.frame(formula = call_formula, data = data)
-  # allow model.frame to update
-  mt = attr(mf, "terms")
+  mf = model.frame(call_formula, data)
 
-  x_data = stats::model.matrix(mt, mf)
-  y_data = stats::model.response(mf, "numeric")
+  x_data = model.matrix(call_formula, data)
+  y_data = model.response(mf)
 
   x_data_transpose = t(x_data)
   predictor_mat = x_data_transpose %*% x_data
@@ -34,7 +32,7 @@ lm_function = function(call_formula, data)
   rank = qr(x_data)$rank
   data_name = deparse(substitute(data))
   call = paste0("lm_funcation(formula = ",
-                deparse(formula), ", data = ", data_name, ")")
+                deparse(call_formula), ", data = ", data_name, ")")
 
 
   obj = list(
