@@ -18,6 +18,10 @@ You can install the development version of lmpackage from [GitHub](https://githu
 pak::pak("sfiguere/lmpackage")
 ```
 
+## Basic Usage
+
+## Navigation
+
 ## Example
 
 ```r
