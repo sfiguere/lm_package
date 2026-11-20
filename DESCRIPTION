@@ -18,6 +18,7 @@ Encoding: UTF-8
 LazyData: true
 Config/roxygen2/version: 8.1.1
 Suggests: 
+    bench,
     ggplot2,
     knitr,
     rmarkdown
