@@ -1,0 +1,146 @@
+---
+title: "Introduction to lmpackage"
+output: rmarkdown::html_vignette
+description: >
+  Start here if this is your first time using the lmpackage. You'll learn the basic
+  use cases, review helpful examples, and comparison with Base R `lm` summary method which
+  allow you to assess model coefficients and fit as well as hypothesis tests. 
+vignette: >
+  %\VignetteIndexEntry{tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lmpackage)
+```
+
+## How it works:
+
+lmpackage fits linear regression models using ordinary least squares (OLS) by solving the normal equations directly. It reports results in the same format as base R's `lm()` and supports two core methods: `print` and `summary`. Together, these methods allow you to test coefficients, evaluate model fit, and check significance levels. 
+
+## Math and algorithmic details
+
+1. **Assemble the model frame.** `model.frame()` evaluates the formula against
+   the data and drops any rows with missing values, so the predictors and
+   the outcome have the same rows.
+2. **Build the design matrix.** `model.matrix()` creates `X`: a column of 1s
+   for the intercept, plus one column for each numeric predictor, plus
+   dummy-coded columns for any categorical predictors.
+3. **Extract the outcome.** `model.response()` pulls the outcome `y` out of
+   the model frame.
+4. **Solve the normal equations.** `lm_function()` solves `(X'X) b = X'y`
+   for the coefficients `b` using `solve()`
+   
+   
+
+This vignette covers:
+
+* Fitting a model with `lm_function()`.
+* Reading `summary()` output.
+* Checking the results against `lm()`.
+* Limitations 
+
+## Data: mtcars
+
+This example uses the built-in `mtcars` data, which has `r nrow(mtcars)` cars. We
+model fuel economy (`mpg`) as a function of weight (`wt`).
+
+```{r}
+head(mtcars[, c("mpg", "wt")])
+```
+
+## Fitting a model
+
+`lm_function()` takes a formula and a data frame.
+
+```{r}
+model = lm_function(mpg ~ wt, data = mtcars)
+model
+```
+
+
+### Coefficient table
+
+The table is stored as a numeric matrix, so you can work with it directly.
+
+```{r}
+summary(model)$coefficients
+```
+
+The intercept is the predicted `mpg` at `wt = 0`, and the `wt` coefficient is
+the change in `mpg` for each additional 1000 lbs.
+
+## Summary
+
+`summary()` adds residuals, standard errors, t-values, p-values, and
+fit statistics.
+
+```{r}
+summary(model)
+```
+
+
+## Comparison with `lm()` for validation
+
+The results match base R:
+
+```{r}
+base_model = lm(mpg ~ wt, data = mtcars)
+
+all.equal(model$coefficients, coef(base_model))
+all.equal(summary(model)$coefficients, coef(summary(base_model)),
+          check.attributes = FALSE)
+```
+
+## Visualization of model fit
+
+```{r}
+library(ggplot2)
+
+model = lm_function(mpg ~ wt, data = mtcars)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() + 
+  geom_abline(
+    aes(
+      intercept = model$coefficients[1], 
+      slope = model$coefficients[2], 
+      color = "lm base method"
+    )
+  ) + 
+  geom_smooth(
+    aes(color = "lm_function() method"), 
+    method = "lm", 
+    formula = y ~ x, 
+    se = FALSE, 
+    linetype = "dashed"
+  ) + 
+  scale_color_manual(
+    name = "Method",
+    values = c(
+      "lm base method" = "blue",
+      "lm_function() method" = "red"
+    )
+  ) +
+  labs(
+    title = "Fitted line from lm_function()", 
+    x = "Weight (1000 lbs)", 
+    y = "Miles per gallon"
+  )
+```
+
+
+## Limitations
+
+* Perfectly collinear predictors are not supported. The `solve()` method is unable to invert singular matrix, which occurs when perfectly linear predictors are supplied. 
+
+* In comparison to base R `lm`, weights and offsets are not supported in `lmpackage`.
+
