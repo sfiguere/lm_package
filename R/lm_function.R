@@ -70,7 +70,6 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
   print.default(format(x$coefficients, digits = 3, quote = FALSE))
   cat("\n")
 
-  invisible(x)
 }
 
 #' Summarize an lm_sfiguere object
