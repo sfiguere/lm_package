@@ -21,5 +21,4 @@ Summarize an lm_sfiguere object
 model = lm_function(mpg ~ wt, data = mtcars)
 summary(model)
 
-
 }
