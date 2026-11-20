@@ -14,7 +14,7 @@ lm_function = function(call_formula, data)
   call = match.call()
 
   mf = stats::model.frame(formula = call_formula, data = data)
-  # allow model.frame to update it
+  # allow model.frame to update
   mt = attr(mf, "terms")
 
   x_data = stats::model.matrix(mt, mf)
@@ -35,7 +35,9 @@ lm_function = function(call_formula, data)
   obj = list(
     call = call,
     coefficients = coefs,
-    residuals = resids
+    residuals = resids,
+    x_obj = x_data,
+    df.residual = nrow(x_data) - qr(x_data)$rank
     )
   class(obj) = "lm_sfiguere"
 
@@ -77,15 +79,34 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 #' model = lm_function(mpg ~ wt, data = mtcars)
 #' summary(model)
 #'
-#'
 #' @export
 summary.lm_sfiguere = function(object, ...) {
+  call = object$call
   est = object$coefficients
   res = object$residuals
+  x_data = object$x_obj
+  df = object$df.residual
+
+
+  # build table of coefficients
+  rss = sum(res^2)
+  resvar = rss/df
+  se = sqrt(diag(resvar * solve(t(x_data) %*% x_data)))
+  tval = est/se
+  pval = 2*pt(abs(tval), df, lower.tail = FALSE)
+
+  coef_table = cbind(
+    `Estimate` = est,
+    `Std. Error` = se,
+    `t value` = tval,
+    `Pr(>|t|)` = pval
+    )
 
   structure(
-    list(call = object$call,
-         residuals = res),
+    list(call = call,
+         residuals = res,
+         coefficients = coef_table
+         ),
     class = "summary.lm_sfiguere"
   )
 }
@@ -111,8 +132,8 @@ print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3
 
   print(res, digits = digits)
 
-  cat("Coefficients:\n")
-
+  cat("\nCoefficients:\n")
+  stats::printCoefmat(x$coefficients, digits = digits)
 
 }
 
