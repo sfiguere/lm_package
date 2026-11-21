@@ -138,36 +138,41 @@ summary.lm_sfiguere = function(object, ...) {
 #' @export
 print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
+  # call section
   cat("\nCall:\n")
   cat(x$call)
   cat("\n")
   cat("\n")
 
-
+  # residuals with five number summary
   cat("Residuals:\n")
   five_summary = c("Min", "1Q", "Median", "3Q", "Max")
-  res  = structure(zapsmall(stats::quantile(x$residuals), digits + 1L),
+  res = structure(zapsmall(stats::quantile(x$residuals), digits + 1L),
                    names = five_summary)
-
   print(res, digits = digits)
 
+  # coerfficent table with signifiance codes
   cat("\nCoefficients:\n")
   stats::printCoefmat(x$coefficients, digits = digits)
 
+  # Goodness of fit section
   cat("\nResidual standard error:",
       format(signif(x$sigma, digits)), "on", x$df, "degrees of freedom")
   cat("\n")
   cat(paste0("Multiple R-squared: ", round(x$r.squared, digits)))
-  cat(",\tAdjusted R-squared: ", round(x$r.squared, digits), "\n")
-  cat("F-statistic:", formatC(x$fstatistic[1L], digits = digits),
-        "on", x$fstatistic[2L], "and",
-        x$fstatistic[3L], "DF,  p-value:",
-        format.pval(pf(x$fstatistic[1L],
-                       x$fstatistic[2L],
-                       x$fstatistic[3L],
-                       lower.tail = FALSE),
-                    digits = digits))
-  cat("\n")
+  cat(",\tAdjusted R-squared: ", round(x$adj.r.squared, digits), "\n")
+  # calculate the upper-tail cumulative distribution function for F-stat pval
+  pval = pf(x$fstatistic[1L],
+            x$fstatistic[2L],
+            x$fstatistic[3L],
+            lower.tail = FALSE)
+
+  cat(sprintf("F-statistic: %s on %s and %s DF, p-value: %s\n",
+               round(x$fstatistic[1L], 2),
+               x$fstatistic[2L],
+               x$fstatistic[3L],
+               format.pval(pval, digits = digits)
+               ))
   cat("\n")
 }
 
