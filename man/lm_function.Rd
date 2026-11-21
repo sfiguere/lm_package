@@ -9,15 +9,41 @@ lm_function(call_formula, data)
 \arguments{
 \item{call_formula}{a formula}
 
-\item{data}{a data frame containing the variables in the formula}
+\item{data}{a data frame containing the variables in the formula. It can be
+used to carry out regression, and used for hypothesis testing.}
 }
 \value{
-a named numeric vector of estimated coefficients
+lm_function returns an object of class "lm_sfiguere". The print
+function returns the call made along with coefficients. The summary function
+is used to print the results of the regression.
+
+\describe{
+  \item{call}{the matched call formula supplied.}
+  \item{coefficients}{a named vector of coefficients.}
+  \item{residuals}{the residuals, that is response minus fitted values.}
+  \item{fitted.values}{the fitted mean values.}
+  \item{rank}{the numeric rank of the fitted linear model.}
+  \item{x_obj}{if requested, the model matrix used.}
+  \item{df.residual}{the residual degrees of freedom.}
+}
 }
 \description{
 Fit a linear regression model using a formula and data set
 }
+\details{
+Models for lm_function are specified symbolically. Normal usage has the form
+response ~ terms where the response is the (numeric) response vector and the
+terms is a series of variables which specifies a linear predictor for the
+response. Specifically, the syntax of terms is in the form first + second +
+... + indicates all the terms in the first together with all the terms in the
+second and so forth with duplicates removed. The specification first * second
+indicates the cross of first and second used in interaction modification.
+This notation is the same as first + second + first:second.
+}
 \examples{
 lm_function(mpg ~ wt, mtcars)
 
+}
+\author{
+Samantha Figueredo Botello \email{sfiguere@umich.edu}
 }
