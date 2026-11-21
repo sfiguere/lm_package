@@ -13,6 +13,7 @@
 #' second and so forth with duplicates removed. The specification first * second
 #' indicates the cross of first and second used in interaction modification.
 #' This notation is the same as first + second + first:second.
+#' The function stops with an error if the predictors are perfectly collinear.
 #'
 #' @return lm_function returns an object of class "lm_sfiguere". The print
 #' function returns the call made along with coefficients. The summary function
@@ -43,6 +44,14 @@ lm_function = function(call_formula, data)
   x_data = model.matrix(call_formula, data)
   y_data = model.response(mf)
 
+  # check for perfectly collinear predictors before solving
+  rank = qr(x_data)$rank
+  if (rank < ncol(x_data)) {
+    stop("Predictors are perfectly collinear.
+         The model cannot be fit. Exiting...",
+         call. = FALSE)
+  }
+
   x_data_transpose = t(x_data)
   predictor_mat = x_data_transpose %*% x_data
 
@@ -55,7 +64,6 @@ lm_function = function(call_formula, data)
   fitted = drop(x_data %*% coefs)
   resids = y_data - fitted
 
-  rank = qr(x_data)$rank
   data_name = deparse(substitute(data))
   call = paste0("lm_funcation(formula = ",
                 deparse(call_formula), ", data = ", data_name, ")")
