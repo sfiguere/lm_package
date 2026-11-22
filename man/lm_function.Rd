@@ -39,10 +39,14 @@ response. Specifically, the syntax of terms is in the form first + second +
 second and so forth with duplicates removed. The specification first * second
 indicates the cross of first and second used in interaction modification.
 This notation is the same as first + second + first:second.
+The function stops with an error if the predictors are perfectly collinear.
 }
 \examples{
 lm_function(mpg ~ wt, mtcars)
 
+}
+\references{
+[Base R lm function](https://github.com/wch/r-source/tree/trunk)
 }
 \author{
 Samantha Figueredo Botello \email{sfiguere@umich.edu}
