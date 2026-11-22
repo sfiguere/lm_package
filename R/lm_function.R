@@ -73,6 +73,7 @@ lm_function = function(call_formula, data)
   resids = y_data - fitted
 
   data_name = deparse(substitute(data))
+  call = paste0("lm_function(formula = ",
                 deparse(call_formula), ", data = ", data_name, ")")
 
 
@@ -192,7 +193,7 @@ print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3
                    names = five_summary)
   print(res, digits = digits)
 
-  # coerfficent table with signifiance codes
+  # coefficient table with significance codes
   cat("\nCoefficients:\n")
   stats::printCoefmat(x$coefficients, digits = digits)
 
