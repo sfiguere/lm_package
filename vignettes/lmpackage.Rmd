@@ -170,7 +170,9 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Limitations
 
-* Perfectly collinear predictors are not supported. The `solve()` method is unable to invert singular matrix, which occurs when perfectly linear predictors are supplied. 
+* The package asssumes the model includes an intercept. 
+
+* Perfectly collinear predictors are not supported. The `solve()` method is unable to invert singular matrix, which occurs when perfectly linear predictors are supplied. The function will stop with an error.  
 
 * In comparison to base R `lm`, weights and offsets are not supported in `lmpackage`.
 
