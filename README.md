@@ -20,9 +20,34 @@ You can install the development version of lmpackage from [GitHub](https://githu
 pak::pak("sfiguere/lmpackage")
 ```
 
-## Basic Usage
+## Basic usage
+
+```r
+library(lmpackage)
+
+model = lm_function(y ~ x, data = my_data)
+
+model             
+summary(model)
+model$coefficients
+```
 
 ## Navigation
+
+* [Installation](#installation)
+* [Basic Usage](#basic-usage)
+* [Example: mtcars](#example-mtcars)
+* [Example: iris](#example-iris)
+* [Getting Help](#getting-help)
+
+## Installation
+
+`lmpackage` can be installed using the following:
+
+```r
+# install.packages("remotes")
+remotes::install_github("sfiguere/lm_package")
+```
 
 ## Example
 
