@@ -20,7 +20,7 @@ You can install the development version of lmpackage from [GitHub](https://githu
 pak::pak("sfiguere/lmpackage")
 ```
 
-## Basic usage
+## Basic Usage
 
 ```r
 library(lmpackage)
@@ -49,14 +49,71 @@ model$coefficients
 remotes::install_github("sfiguere/lm_package")
 ```
 
-## Example
+## Example: mtcars
 
 ```r
 library(lmpackage)
 
 lm_function(mpg ~ wt, data = mtcars)
-#> (Intercept)          wt 
-#>   37.285126   -5.344472
+
+# Call:
+# lm_funcation(formula = mpg ~ wt, data = mtcars)
+
+# Coefficients:
+# (Intercept)          wt 
+#     "37.29"     "-5.34" 
+
+summary(lm_function(mpg ~ wt, data = mtcars))
+
+# Call:
+# lm_funcation(formula = mpg ~ wt, data = mtcars)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
+# wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 3.046 on 30 degrees of freedom
+# Multiple R-squared: 0.7528,	Adjusted R-squared:  0.7446 
+# F-statistic: 91.38 on 1 and 30 DF, p-value: 1.294e-10
+```
+
+## Example: iris
+```r
+lm_function(Sepal.Length ~ Petal.Length, data = iris)
+
+# Call:
+# lm_funcation(formula = Sepal.Length ~ Petal.Length, data = iris)
+# 
+# Coefficients:
+#  (Intercept) Petal.Length 
+#      "4.307"      "0.409" 
+
+summary(lm_function(Sepal.Length ~ Petal.Length, data = iris))
+
+# Call:
+# lm_funcation(formula = Sepal.Length ~ Petal.Length, data = iris)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.24675 -0.29657 -0.01515  0.27676  1.00269 
+# 
+# Coefficients:
+#              Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)   4.30660    0.07839   54.94   <2e-16 ***
+# Petal.Length  0.40892    0.01889   21.65   <2e-16 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.4071 on 148 degrees of freedom
+# Multiple R-squared: 0.76,	Adjusted R-squared:  0.7583 
+# F-statistic: 468.55 on 1 and 148 DF, p-value: < 2.2e-16
 ```
 
 ## Getting Help
