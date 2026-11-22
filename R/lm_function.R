@@ -1,6 +1,6 @@
 #' Fit a linear regression model using a formula and data set
 #'
-#' @param call_formula a formula
+#' @param formula a formula
 #' @param data a data frame containing the variables in the formula. It can be
 #'  used to carry out regression, and used for hypothesis testing.
 #'
@@ -38,7 +38,7 @@
 #'
 #' @importFrom stats model.frame model.matrix model.response pt pf
 #' @export
-lm_function = function(call_formula, data)
+lm_function = function(formula, data)
 {
   # check for proper usage of function
   usage = "Usage: lm_function(y ~ x, data = my_data_frame)"
@@ -47,9 +47,9 @@ lm_function = function(call_formula, data)
          usage, call. = FALSE)
   }
 
-  mf = model.frame(call_formula, data)
+  mf = model.frame(formula, data)
 
-  x_data = model.matrix(call_formula, data)
+  x_data = model.matrix(formula, data)
   y_data = model.response(mf)
 
   # check for perfectly collinear predictors before solving
@@ -74,7 +74,7 @@ lm_function = function(call_formula, data)
 
   data_name = deparse(substitute(data))
   call = paste0("lm_function(formula = ",
-                deparse(call_formula), ", data = ", data_name, ")")
+                deparse(formula), ", data = ", data_name, ")")
 
 
   obj = list(
