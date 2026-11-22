@@ -4,10 +4,10 @@
 \alias{lm_function}
 \title{Fit a linear regression model using a formula and data set}
 \usage{
-lm_function(call_formula, data)
+lm_function(formula, data)
 }
 \arguments{
-\item{call_formula}{a formula}
+\item{formula}{a formula}
 
 \item{data}{a data frame containing the variables in the formula. It can be
 used to carry out regression, and used for hypothesis testing.}
@@ -23,7 +23,7 @@ is used to print the results of the regression.
   \item{residuals}{the residuals, that is response minus fitted values.}
   \item{fitted.values}{the fitted mean values.}
   \item{rank}{the numeric rank of the fitted linear model.}
-  \item{x_obj}{if requested, the model matrix used.}
+  \item{x_obj}{Model matrix used.}
   \item{df.residual}{the residual degrees of freedom.}
 }
 }
