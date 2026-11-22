@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+has_bench = requireNamespace("bench", quietly = TRUE)
+has_ggplot2 = requireNamespace("ggplot2", quietly = TRUE)
 ```
 
 ```{r setup}
@@ -102,7 +104,9 @@ all.equal(summary(model)$coefficients, coef(summary(base_model)),
 
 
 ## Efficiency 
-```{r}
+*This section runs only if the `bench` package is installed.*
+
+```{r eval = has_bench}
 # ensure random processes is reproducible 
 set.seed(50)
 # observations
@@ -132,7 +136,9 @@ print(efficiency_comparison)
 
 ## Visualization of model fit
 
-```{r}
+*This section runs only if the `ggplot2` package is installed.*
+
+```{r plot, eval = has_ggplot2}
 library(ggplot2)
 
 model = lm_function(mpg ~ wt, data = mtcars)
