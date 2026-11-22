@@ -25,3 +25,5 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Imports: 
+    stats
