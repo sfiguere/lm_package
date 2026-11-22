@@ -15,7 +15,6 @@ Description: Fits linear regression models by solving the normal
     in base R linear regression function. 
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Config/roxygen2/version: 8.1.1
 Suggests: 
     bench,
