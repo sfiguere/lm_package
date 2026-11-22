@@ -127,6 +127,8 @@ efficiency_comparison = bench::mark(
 
 print(efficiency_comparison)
 ```
+`bench::mark()` confirms that `lm_function()` returns the same coefficients as `lm()` and shows the two run in comparable time and memory. `lm()` is more numerically stable because it uses a QR decomposition, while `lm_function()` solves the normal equations directly, which is simpler and accurate for well-conditioned data used for the purpose of this assignment.
+
 
 ## Visualization of model fit
 
@@ -141,11 +143,11 @@ ggplot(mtcars, aes(wt, mpg)) +
     aes(
       intercept = model$coefficients[1], 
       slope = model$coefficients[2], 
-      color = "lm base method"
+      color = "lm_function() method"
     )
   ) + 
   geom_smooth(
-    aes(color = "lm_function() method"), 
+    aes(color = "lm base method"), 
     method = "lm", 
     formula = y ~ x, 
     se = FALSE, 
