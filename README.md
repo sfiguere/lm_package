@@ -52,8 +52,8 @@ lm_function(mpg ~ wt, data = mtcars)
 # lm_function(formula = mpg ~ wt, data = mtcars)
 
 # Coefficients:
-# (Intercept)          wt 
-#     "37.29"     "-5.34" 
+# (Intercept)           wt  
+#      37.285       -5.344 
 
 summary(lm_function(mpg ~ wt, data = mtcars))
 
