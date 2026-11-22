@@ -73,7 +73,6 @@ lm_function = function(call_formula, data)
   resids = y_data - fitted
 
   data_name = deparse(substitute(data))
-  call = paste0("lm_function(formula = ",
                 deparse(call_formula), ", data = ", data_name, ")")
 
 
@@ -110,6 +109,7 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
   cat("Coefficients:\n")
   print.default(format(x$coefficients, digits = 3, quote = FALSE))
   cat("\n")
+  invisible(x)
 
 }
 
@@ -215,6 +215,7 @@ print.summary.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3
                format.pval(pval, digits = digits)
                ))
   cat("\n")
+  invisible(x)
 }
 
 
