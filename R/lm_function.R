@@ -108,7 +108,8 @@ print.lm_sfiguere = function(x, digits = max(3L, getOption("digits") - 3L), ...)
   cat(x$call)
   cat("\n\n")
   cat("Coefficients:\n")
-  print.default(format(x$coefficients, digits = 3, quote = FALSE))
+  print.default(format(x$coefficients, digits = digits),
+                print.gap = 2, quote = FALSE)
   cat("\n")
   invisible(x)
 
