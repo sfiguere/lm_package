@@ -4,3 +4,10 @@ S3method(print,lm_sfiguere)
 S3method(print,summary.lm_sfiguere)
 S3method(summary,lm_sfiguere)
 export(lm_function)
+importFrom(stats,
+  model.frame,
+  model.matrix,
+  model.response,
+  pf,
+  pt
+)

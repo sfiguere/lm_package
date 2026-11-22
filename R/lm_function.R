@@ -30,10 +30,13 @@
 #' }
 #'
 #' @author Samantha Figueredo Botello \email{sfiguere@@umich.edu}
+#' @references
+#' [Base R lm function](https://github.com/wch/r-source/tree/trunk)
 #'
 #' @examples
 #' lm_function(mpg ~ wt, mtcars)
 #'
+#' @importFrom stats model.frame model.matrix model.response pt pf
 #' @export
 lm_function = function(call_formula, data)
 {
