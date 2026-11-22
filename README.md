@@ -11,13 +11,22 @@ ordinary least squares as an estimation method to fit a linear regression model
 by minimizing the sum of the squared vertical distances between the observed 
 data points and the predicted data.
 
+## Navigation
+
+* [Installation](#installation)
+* [Basic Usage](#basic-usage)
+* [Example: mtcars](#example-mtcars)
+* [Example: iris](#example-iris)
+* [Getting Help](#getting-help)
+
+
 ## Installation
 
 You can install the development version of lmpackage from [GitHub](https://github.com/sfiguere/lmpackage) with:
 
-``` r
-# install.packages("pak")
-pak::pak("sfiguere/lmpackage")
+```r
+# install.packages("remotes")
+remotes::install_github("sfiguere/lm_package")
 ```
 
 ## Basic Usage
@@ -32,23 +41,6 @@ summary(model)
 model$coefficients
 ```
 
-## Navigation
-
-* [Installation](#installation)
-* [Basic Usage](#basic-usage)
-* [Example: mtcars](#example-mtcars)
-* [Example: iris](#example-iris)
-* [Getting Help](#getting-help)
-
-## Installation
-
-`lmpackage` can be installed using the following:
-
-```r
-# install.packages("remotes")
-remotes::install_github("sfiguere/lm_package")
-```
-
 ## Example: mtcars
 
 ```r
@@ -57,7 +49,7 @@ library(lmpackage)
 lm_function(mpg ~ wt, data = mtcars)
 
 # Call:
-# lm_funcation(formula = mpg ~ wt, data = mtcars)
+# lm_function(formula = mpg ~ wt, data = mtcars)
 
 # Coefficients:
 # (Intercept)          wt 
@@ -66,7 +58,7 @@ lm_function(mpg ~ wt, data = mtcars)
 summary(lm_function(mpg ~ wt, data = mtcars))
 
 # Call:
-# lm_funcation(formula = mpg ~ wt, data = mtcars)
+# lm_function(formula = mpg ~ wt, data = mtcars)
 # 
 # Residuals:
 #     Min      1Q  Median      3Q     Max 
@@ -89,7 +81,7 @@ summary(lm_function(mpg ~ wt, data = mtcars))
 lm_function(Sepal.Length ~ Petal.Length, data = iris)
 
 # Call:
-# lm_funcation(formula = Sepal.Length ~ Petal.Length, data = iris)
+# lm_function(formula = Sepal.Length ~ Petal.Length, data = iris)
 # 
 # Coefficients:
 #  (Intercept) Petal.Length 
@@ -98,7 +90,7 @@ lm_function(Sepal.Length ~ Petal.Length, data = iris)
 summary(lm_function(Sepal.Length ~ Petal.Length, data = iris))
 
 # Call:
-# lm_funcation(formula = Sepal.Length ~ Petal.Length, data = iris)
+# lm_function(formula = Sepal.Length ~ Petal.Length, data = iris)
 # 
 # Residuals:
 #      Min       1Q   Median       3Q      Max 
@@ -117,7 +109,7 @@ summary(lm_function(Sepal.Length ~ Petal.Length, data = iris))
 ```
 
 ## Getting Help
-If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/sfiguere/lmpackage/issues). For questions and other discussion, please use email sfiguere@umich.edu
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/sfiguere/lm_package/issues). For questions and other discussion, please use email sfiguere@umich.edu
 
 
 
