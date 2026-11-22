@@ -50,7 +50,7 @@ lm_function(mpg ~ wt, data = mtcars)
 
 # Call:
 # lm_function(formula = mpg ~ wt, data = mtcars)
-
+# 
 # Coefficients:
 # (Intercept)           wt  
 #      37.285       -5.344 
@@ -84,8 +84,8 @@ lm_function(Sepal.Length ~ Petal.Length, data = iris)
 # lm_function(formula = Sepal.Length ~ Petal.Length, data = iris)
 # 
 # Coefficients:
-#  (Intercept) Petal.Length 
-#      "4.307"      "0.409" 
+#  (Intercept)  Petal.Length  
+#       4.3066        0.4089  
 
 summary(lm_function(Sepal.Length ~ Petal.Length, data = iris))
 
