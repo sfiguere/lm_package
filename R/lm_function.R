@@ -30,7 +30,6 @@
 #' }
 #'
 #' @author Samantha Figueredo Botello \email{sfiguere@@umich.edu}
-#' @references
 #'
 #' @examples
 #' lm_function(mpg ~ wt, mtcars)
