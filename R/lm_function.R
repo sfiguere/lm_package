@@ -31,7 +31,7 @@
 #'
 #' @author Samantha Figueredo Botello \email{sfiguere@@umich.edu}
 #' @references
-#' [Base R lm function](https://github.com/wch/r-source/tree/trunk)
+#' \url{https://github.com/wch/r-source/blob/trunk/src/library/stats/R/lm.R}
 #'
 #' @examples
 #' lm_function(mpg ~ wt, mtcars)
