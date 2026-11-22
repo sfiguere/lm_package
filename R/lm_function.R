@@ -40,6 +40,12 @@
 #' @export
 lm_function = function(call_formula, data)
 {
+  # check for proper usage of function
+  usage = "Usage: lm_function(y ~ x, data = my_data_frame)"
+  if (!is.data.frame(data)) {
+    stop("`data` must be a data frame containing the variables in the formula.\n",
+         usage, call. = FALSE)
+  }
 
   mf = model.frame(call_formula, data)
 
