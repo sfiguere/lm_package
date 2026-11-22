@@ -73,7 +73,7 @@ lm_function = function(call_formula, data)
   resids = y_data - fitted
 
   data_name = deparse(substitute(data))
-  call = paste0("lm_funcation(formula = ",
+  call = paste0("lm_function(formula = ",
                 deparse(call_formula), ", data = ", data_name, ")")
 
 
